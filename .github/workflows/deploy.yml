@@ -1,0 +1,29 @@
+name: build-and-push
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: コード取得
+        uses: actions/checkout@v3
+
+      - name: AWS認証
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-1
+
+      - name: ECRログイン
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Docker build & push
+        run: |
+          docker build -t nginx-dev .
+          docker tag nginx-dev:latest <アカウントID>.dkr.ecr.ap-northeast-1.amazonaws.com/nginx-dev:latest
+          docker push <アカウントID>.dkr.ecr.ap-northeast-1.amazonaws.com/nginx-dev:latest

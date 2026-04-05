@@ -25,5 +25,5 @@ jobs:
       - name: Docker build & push
         run: |
           docker build -t nginx-dev .
-          docker tag nginx-dev:latest <アカウントID>.dkr.ecr.ap-northeast-1.amazonaws.com/nginx-dev:latest
-          docker push <アカウントID>.dkr.ecr.ap-northeast-1.amazonaws.com/nginx-dev:latest
+          docker tag nginx-dev:latest 445463773579.dkr.ecr.ap-northeast-1.amazonaws.com/nginx-dev:latest
+          docker push 445463773579.dkr.ecr.ap-northeast-1.amazonaws.com/nginx-dev:latest
